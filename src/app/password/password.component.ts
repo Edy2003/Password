@@ -20,7 +20,7 @@ export class PasswordComponent implements OnInit {
   ngOnInit(): void {
     this.pass = new FormControl('');
   }
-  
+
   Submit() {
     if(this.pass.value.length < 8){
       this.letters = true;
