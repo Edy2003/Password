@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators} from "@angular/forms";
+import { FormControl } from "@angular/forms";
 
 
 
@@ -11,8 +11,8 @@ import { FormControl, Validators} from "@angular/forms";
 export class PasswordComponent implements OnInit {
   pass!: FormControl
 
-  constructor() {
-  }
+  constructor() {}
+
   letters = false;
   easy = false;
   medium = false;
@@ -29,20 +29,19 @@ export class PasswordComponent implements OnInit {
     else{this.letters = false;}
 
 
-
     if( this.pass.value.length >= 8 &&
-      (/^[0-9]+$/.test(this.pass.value)||
+      (/^\d+$/.test(this.pass.value)||
       /^[a-zA-Z]+$/.test(this.pass.value)||
-      /^[^a-zA-Z0-9]+$/.test(this.pass.value)))
+      /^[^a-zA-Z\d]+$/.test(this.pass.value)))
     {
       this.strong = false;
-      this.easy = true;
       this.medium = false;
+      this.easy = true;
     }
     else if (this.pass.value.length >= 8 &&
-      /^[A-Za-z0-9]*$/.test(this.pass.value) ||
+      /^[A-Za-z0\d]*$/.test(this.pass.value) ||
       (/^[^a-zA-Z]+$/.test(this.pass.value) ||
-        /^[^0-9]+$/.test(this.pass.value)))
+        /^\D+$/.test(this.pass.value)))
     {
       this.strong = false;
       this.easy = false;
@@ -54,12 +53,7 @@ export class PasswordComponent implements OnInit {
       this.strong = true;
     }
 
-
-
-
-
-
-    console.log(/^\d+$/.test(this.pass.value))
   }
+
 }
 
