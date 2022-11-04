@@ -35,17 +35,22 @@ export class PasswordComponent implements OnInit {
       /^[a-zA-Z]+$/.test(this.pass.value)||
       /^[^a-zA-Z0-9]+$/.test(this.pass.value)))
     {
+      this.strong = false;
       this.easy = true;
+      this.medium = false;
     }
     else if (this.pass.value.length >= 8 &&
       /^[A-Za-z0-9]*$/.test(this.pass.value) ||
       (/^[^a-zA-Z]+$/.test(this.pass.value) ||
         /^[^0-9]+$/.test(this.pass.value)))
     {
-      this.letters = false;
+      this.strong = false;
+      this.easy = false;
       this.medium = true;
     }
     else {
+      this.easy = false;
+      this.medium = false;
       this.strong = true;
     }
 
