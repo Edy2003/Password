@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
 
-
-
 @Component({
   selector: 'app-password',
   templateUrl: './password.component.html',
@@ -10,6 +8,7 @@ import { FormControl } from "@angular/forms";
 })
 export class PasswordComponent implements OnInit {
   pass!: FormControl
+
 
   constructor() {}
 
@@ -21,7 +20,7 @@ export class PasswordComponent implements OnInit {
   ngOnInit(): void {
     this.pass = new FormControl('');
   }
-
+  
   Submit() {
     if(this.pass.value.length < 8){
       this.letters = true;
