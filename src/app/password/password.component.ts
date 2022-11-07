@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-password',
@@ -8,9 +9,10 @@ import { FormControl } from "@angular/forms";
 })
 export class PasswordComponent implements OnInit {
   pass!: FormControl
-
-
-  constructor() {}
+  private subscr: Subscription;
+  constructor() {
+    this.subscr = new Subscription();
+  }
 
   letters = false;
   easy = false;
@@ -19,7 +21,7 @@ export class PasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.pass = new FormControl('');
-    this.pass.valueChanges.subscribe(get=>{this.submit()})
+    this.subscr = this.pass.valueChanges.subscribe(get=>{this.submit()})
   }
 
   submit() {
@@ -54,6 +56,8 @@ export class PasswordComponent implements OnInit {
     }
 
   }
-
+  ngOnDestroy(){
+    this.subscr.unsubscribe();
+  }
 }
 
