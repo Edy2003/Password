@@ -11,6 +11,7 @@ export class PasswordComponent implements OnInit {
   pass!: FormControl
   private subscr: Subscription;
   constructor() {
+    this.pass = new FormControl('');
     this.subscr = new Subscription();
   }
 
@@ -20,16 +21,11 @@ export class PasswordComponent implements OnInit {
   strong = false;
 
   ngOnInit(): void {
-    this.pass = new FormControl('');
     this.subscr = this.pass.valueChanges.subscribe(get=>{this.submit()})
   }
 
   submit() {
-    if(this.pass.value.length < 8){
-      this.letters = true;
-    }
-    else{this.letters = false;}
-
+    this.letters = this.pass.value.length < 8;
 
     if( this.pass.value.length >= 8 &&
       (/^\d+$/.test(this.pass.value)||
