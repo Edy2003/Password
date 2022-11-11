@@ -8,52 +8,46 @@ import {Subscription} from "rxjs";
   styleUrls: ['./password.component.css']
 })
 export class PasswordComponent implements OnInit {
-  pass!: FormControl
-  private subscr: Subscription;
-  constructor() {
-    this.pass = new FormControl('');
-    this.subscr = new Subscription();
+  public pass: FormControl = new FormControl('');
+  private subscr: Subscription = this.pass.valueChanges.subscribe(get=>{this.submit()});
+
+  public letters = false;
+  public easy = false;
+  public medium = false;
+  public strong = false;
+
+  constructor() {  }
+
+  ngOnInit(): void {  }
+
+  private ngOnDestroy(){
+    this.subscr.unsubscribe();
   }
 
-  letters = false;
-  easy = false;
-  medium = false;
-  strong = false;
-
-  ngOnInit(): void {
-    this.subscr = this.pass.valueChanges.subscribe(get=>{this.submit()})
-  }
-
-  submit() {
+ private submit() {
     this.letters = this.pass.value.length < 8;
 
-    if( this.pass.value.length >= 8 &&
-      (/^\d+$/.test(this.pass.value)||
-      /^[a-zA-Z]+$/.test(this.pass.value)||
-      /^[^a-zA-Z\d]+$/.test(this.pass.value)))
-    {
+    if(
+      (/^\d+$/.test(this.pass.value)|| /^[a-zA-Z]+$/.test(this.pass.value)|| /^[^a-zA-Z\d]+$/.test(this.pass.value))
+      && this.pass.value.length >= 8
+    ) {
       this.strong = false;
       this.medium = false;
       this.easy = true;
-    }
-    else if (this.pass.value.length >= 8 &&
-      /^[A-Za-z0\d]*$/.test(this.pass.value) ||
-      (/^[^a-zA-Z]+$/.test(this.pass.value) ||
-        /^\D+$/.test(this.pass.value)))
-    {
+    } else if (
+      (/^[A-Za-z0\d]*$/.test(this.pass.value) || /^[^a-zA-Z]+$/.test(this.pass.value) || /^\D+$/.test(this.pass.value))
+      && this.pass.value.length >= 8
+    ) {
       this.strong = false;
       this.easy = false;
       this.medium = true;
-    }
-    else {
+    } else {
       this.easy = false;
       this.medium = false;
       this.strong = true;
     }
 
   }
-  ngOnDestroy(){
-    this.subscr.unsubscribe();
-  }
+
 }
 
