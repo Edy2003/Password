@@ -37,8 +37,10 @@ export class PasswordComponent implements OnInit {
       (/^[A-Za-z0\d]*$/.test(this.pass.value) || /^[^a-zA-Z]+$/.test(this.pass.value) || /^\D+$/.test(this.pass.value))
       && this.pass.value.length >= 8
     ) {
+      this.strong = false;
       this.medium = true;
     } else {
+      this.medium = false;
       this.strong = true;
     }
 
